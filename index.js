@@ -14,75 +14,14 @@ mongoose.connect(url)
 
 // Schema(Shape of a document)
 
-const User = require('./model/User');
-const Task = require('./model/Task');   
+const userRoutes = require('./routes/user')
+const taskRoutes = require('./routes/task')
 
-/**
- * task --> POST
- * task --> GET
- * task --> :id GET
- * task --> :id PATCH
- * task --> DELETE
- * 
- * user --> POST
- * user --> GET
- * user --> :id GET
- * user --> :id PATCH
- * user --> DELETE
- */
-
-
-// TASKS
-app.post('/task',async (req,res) => {
-
-    try{ 
-       
-        const task = new Task(req.body);
-        
-    
-        await task.save();
-    
-        return res.status(201).json({success: true, task});
-    }
-    catch(e){
-        return res.status(400).json({success: false,message:e.message});
-    }
-
-})
-
-// USER
-app.post('/user',async (req,res) => {
-
-    try{ 
-       
-        const user = new User(req.body);
-        
-    
-        await user.save();
-    
-        return res.status(201).json({success: true, user});
-    }
-    catch(e){
-        return res.status(400).json({success: false,message:e.message});
-    }
-
-});
-
-// getting task data
-app.get('/task',async (req,res) => {
-    const tasks  = await Task.find({});
-    return res.json({success:true,tasks});
-});
-
-// getting user data
-app.get('/user',async (req,res) => {
-    const users  = await User.find({});
-    return res.json({success:true,users});
-});
-
-// next is 09
+app.use(userRoutes);
+app.use(taskRoutes);
 
 const port = process.env.PORT||4040;
 
 app.listen(port, () => console.log(`Server running at port ${port}`));
 
+// 04 next

@@ -9,6 +9,7 @@
   "author": "Henry Nyonyo",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "express": "^4.18.2",
     "mongoose": "^7.2.2",
